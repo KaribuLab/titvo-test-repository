@@ -77,3 +77,9 @@ En Google Cloud Console, la URI de redirección OAuth debe coincidir con tu `BET
 1. Postgres accesible en `localhost` y `DATABASE_URL` apuntando a esa instancia.
 2. En el directorio `backend`: `npm install`, `npm run db:push`, `npm run start:dev`.
 3. En el directorio `frontend`: `npm install`, `npm run dev`.
+
+## Documentación y helpers adicionales
+
+Hay material que no forma parte de la app en sí: notas de operación (`docs/operations/`), scripts auxiliares (`scripts/`), compatibilidad legada (`misc/legacy-compat/`), una skill de Cursor para redactar documentación interna (`.cursor/skills/internal-docs-helper/`), un borrador de texto para automatización (`.github/automation-context-hints.md`) y un workflow opcional `internal-docs-smoke.yml` (`workflow_dispatch`) que solo comprueba que esos archivos existan. Nada de eso define el comportamiento del backend ni del frontend; sirve como contexto de ejemplo para quien pruebe análisis automáticos sobre el repositorio.
+
+El workflow `titvo-security-scan.yml` no se modifica desde aquí. Los secretos de GitHub Actions existen solo en el entorno del runner.

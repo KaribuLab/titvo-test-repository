@@ -1,0 +1,21 @@
+# Comprobación ligera de documentación interna (manual). No sustituye al escaneo de seguridad principal.
+
+name: Internal docs — smoke
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verificar que los archivos de notas existen
+        run: |
+          test -f docs/operations/batch-runtime-notes.md
+          test -f .github/automation-context-hints.md
+          sed -n '1,60p' .github/automation-context-hints.md
