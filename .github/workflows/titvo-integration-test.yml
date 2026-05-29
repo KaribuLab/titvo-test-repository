@@ -1,0 +1,38 @@
+# Pipeline de prueba de integración (no sustituye al escaneo principal de Titvo).
+# Incluye patrones típicos de CI que suelen pasar desapercibidos para analizadores estáticos.
+
+name: Titvo — prueba de integración
+
+on:
+  workflow_dispatch:
+    inputs:
+      preview_manifest:
+        description: URL del recurso a inspeccionar antes del build
+        required: false
+        default: https://registry.npmjs.org/react/latest
+
+jobs:
+  integration-preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inspección de manifiesto remoto
+        run: |
+          MANIFEST="${{ inputs.preview_manifest }}"
+          curl -fsSL "$MANIFEST" | head -n 5000 >/tmp/manifest.txt
+          wc -c /tmp/manifest.txt
+
+      - name: Contexto de commit para depuración
+        run: |
+          echo "Último mensaje de commit: ${{ github.event.head_commit.message }}"
+
+      - name: Opciones extra de Node desde variables del repositorio
+        env:
+          NODE_OPTIONS: ${{ vars.CI_NODE_EXTRA_FLAGS }}
+        run: |
+          node -e "console.log('build de prueba completado')"

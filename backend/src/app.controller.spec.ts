@@ -2,6 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+jest.mock('@thallesp/nestjs-better-auth', () => ({
+  AllowAnonymous: () => () => undefined,
+}));
+
 describe('AppController', () => {
   let appController: AppController;
 
@@ -15,8 +19,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return API label', () => {
+      expect(appController.getHello()).toBe('Titvo todo API');
     });
   });
 });
