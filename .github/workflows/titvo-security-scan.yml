@@ -25,4 +25,4 @@ jobs:
           github_repo_name: ${{ github.repository }}
           github_commit_sha: ${{ github.sha }}
           github_assignee: ${{ github.actor }}
-          github_branch: ${{ github.ref_name }}
+          github_branch: ${{ github.head_ref || github.ref_name }}
